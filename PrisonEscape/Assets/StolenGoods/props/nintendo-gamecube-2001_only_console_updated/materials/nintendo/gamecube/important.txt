@@ -1,0 +1,3 @@
+Some textures have a black background (AAO, D1I, DAO, dotto)
+Or a white background (fatta, rl)
+Apply them alpha
