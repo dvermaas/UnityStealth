@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class Doors : MonoBehaviour
 {
+    public bool IsLocked = false;
+
     private bool IsOpen = false;
     private bool IsBusy = false;
-    public bool IsLocked = false;
-    Quaternion defaultRotation;
-
-    void Start()
-    {
-        defaultRotation = transform.parent.transform.rotation;
-    }
+    private bool swingDirection;
 
     // Checks if door should open or close
     public void ToggleDoor(Transform actor)
@@ -41,38 +37,27 @@ public class Doors : MonoBehaviour
     }
 
     // Opens the door
-    public void OpenDoor(Transform actor)
+    private void OpenDoor(Transform actor)
     {
         var heading = actor.position - transform.position;
         float dot = Vector3.Dot(heading, transform.right);
         // if greater then 0, open normally
         if (dot > 0)
         {
-            Debug.Log("(Doors.cs) opening door (pos)");
-            StartCoroutine(RotateObject(false, Vector3.up, .7f));
-            IsOpen = true;
+            swingDirection = false;
         }
         else
-        {
-            Debug.Log("(Doors.cs) opening door (neg)");
-            StartCoroutine(RotateObject(true, Vector3.up, .7f));
-            IsOpen = true;
+        { 
+            swingDirection = true;
         }
+        StartCoroutine(RotateObject(swingDirection, Vector3.up, .7f));
+        IsOpen = true;
     }
 
     // Closes the door
-    public void CloseDoor()
+    private void CloseDoor()
     {
-        float rot = defaultRotation.y - transform.parent.transform.rotation.y;
-        Debug.Log("(Doors.cs) closing door" + rot);
-        if (rot > 0)
-        {
-            StartCoroutine(RotateObject(true, Vector3.down, .7f));
-        }
-        else
-        {
-            StartCoroutine(RotateObject(false, Vector3.down, .7f));
-        }
+        StartCoroutine(RotateObject(swingDirection, Vector3.down, .7f));
         IsOpen = false;
     }
     
