@@ -13,7 +13,7 @@ public class NPC : MonoBehaviour
     public Transform head;
     public float Heat = 0f;
 
-    private int HP = 100;
+    public int HP = 100;
     private Animator _animator;
     private NavMeshAgent NavMeshAgent;
     private GameObject Player;

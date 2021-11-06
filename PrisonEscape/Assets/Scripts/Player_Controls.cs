@@ -10,8 +10,9 @@ public class Player_Controls : MonoBehaviour
     public int HP = 100;
     // Leg vars
     private Rigidbody _rigidbody;
-    public float MovementSpeed = 5;
-    public float JumpForce = 5;
+    private float MovementSpeedBase = 3;
+    private float MovementSpeed;
+    private float JumpForce = 3;
     // Cam vars
     private GameObject _camera;
     private GameObject _gun;
@@ -36,6 +37,7 @@ public class Player_Controls : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        MovementSpeed = MovementSpeedBase;
         Cursor.lockState = CursorLockMode.Locked;
 
         _camera = GameObject.Find("Main Camera");
@@ -145,14 +147,14 @@ public class Player_Controls : MonoBehaviour
         {
             if (!IsCrouching)
             {
-                MovementSpeed = 10f;
+                MovementSpeed = 2 * MovementSpeedBase;
             }
         }
         if (Input.GetButtonUp("Sprint"))
         {
             if (!IsCrouching)
             {
-                MovementSpeed = 5f;
+                MovementSpeed = MovementSpeedBase;
             }
         }
     }
@@ -182,7 +184,7 @@ public class Player_Controls : MonoBehaviour
             {
                 if (IsSprinting)
                 {
-                    MovementSpeed = 5f;
+                    MovementSpeed = MovementSpeedBase;
                 }
                 StartCoroutine(CrouchUp(1));
                 MovementSpeed /= .6f;
@@ -204,6 +206,7 @@ public class Player_Controls : MonoBehaviour
             Debug.Log("Paused the game");
             Menu.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = (true);
             Time.timeScale = 0;
         }
     }
