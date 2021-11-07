@@ -55,35 +55,56 @@ public class Player_Controls : MonoBehaviour
     {
         // Menu
         PauseGame();
-
+        // Inv
+        Inventory();
         // Move (wasd)
         Move();
-
         // Looking (mouse)
         Look();
-
         // Jump (space)
         Jump();
-
         // Run (shift)
         Run();
-
         // Crouching (c)
         Crouch();
-
         // Interact (f)
         Interact();
         
         
+        // This is retarded to constantly update bruh
+        HandUpdate();
+    }
+    private void Inventory()
+    {
         if (Input.GetButtonDown("Inventory"))
         {
             uiInventory.CheckInventory();
             Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             Time.timeScale = 0;
         }
+    }
 
-        // This is retarded to constantly update bruh
-        HandUpdate();
+    // Pauze menu
+    public void PauseGame()
+    {
+        if (Input.GetButtonDown("Pause"))
+        {
+            Debug.Log("Paused the game");
+            Menu.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            Time.timeScale = 0;
+        }
+    }
+
+    // Resume menu
+    public void ResumeGame()
+    {
+        Debug.Log("Resumed the game");
+        Menu.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Time.timeScale = 1;
     }
 
     private void Interact()
@@ -196,28 +217,6 @@ public class Player_Controls : MonoBehaviour
             }
             IsCrouching = !IsCrouching;
         } 
-    }
-
-    // Pauze menu
-    public void PauseGame()
-    {
-        if (Input.GetButtonDown("Pause"))
-        {
-            Debug.Log("Paused the game");
-            Menu.SetActive(true);
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = (true);
-            Time.timeScale = 0;
-        }
-    }
-
-    // Resume menu
-    public void ResumeGame()
-    {
-        Debug.Log("Resumed the game");
-        Menu.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
-        Time.timeScale = 1;
     }
 
     // Main Menu
