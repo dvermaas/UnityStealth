@@ -34,6 +34,9 @@ public class Player_Controls : MonoBehaviour
     public GameObject InventoryMenu;
     private Inventory inventory;
 
+    private GameObject _fps;
+    private float _timer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +45,7 @@ public class Player_Controls : MonoBehaviour
 
         _camera = GameObject.Find("Main Camera");
         _gun = GameObject.Find("Glock");
+        _fps = GameObject.Find("FPS_Counter");
 
         _rigidbody = GetComponent<Rigidbody>();
         _collisionFeet = GetComponent<BoxCollider>();
@@ -68,11 +72,17 @@ public class Player_Controls : MonoBehaviour
         // Crouching (c)
         Crouch();
         // Interact (f)
-        Interact();
-        
-        
+        Interact(); 
         // This is retarded to constantly update bruh
         HandUpdate();
+        // FPS
+        //_fps.GetComponent<Text>().text = ((int)(1f / Time.unscaledDeltaTime)).ToString() + " FPS";
+        if (Time.unscaledTime > _timer)
+        {
+            int fps = (int)(1f / Time.unscaledDeltaTime);
+            _fps.GetComponent<Text>().text = fps + "FPS";
+            _timer = Time.unscaledTime + .1f;
+        }
     }
     private void Inventory()
     {
