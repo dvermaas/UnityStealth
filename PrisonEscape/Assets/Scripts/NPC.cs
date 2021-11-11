@@ -39,7 +39,7 @@ public class NPC : MonoBehaviour
     void Start()
     {
         _animator = GetComponent<Animator>();
-        NavMeshAgent = transform.parent.GetComponent<NavMeshAgent>();
+        NavMeshAgent = GetComponent<NavMeshAgent>();
         playerScript = GameObject.Find("Player");
         Player = GameObject.Find("Main Camera");
         HeatBar = GameObject.Find("HeatBarFill");
@@ -88,7 +88,7 @@ public class NPC : MonoBehaviour
         // Do combat stuff here
         weapon.SetActive(true);
         _animator.SetBool("Combat", true);
-        transform.parent.GetComponent<NavMeshAgent>().speed = 5f;
+        NavMeshAgent.speed = 5f;
 
         // If lost sight (no viewcone) start countdown untill stopping search.
         if (!CanSeePlayer(360))
@@ -103,7 +103,7 @@ public class NPC : MonoBehaviour
             {
                 Heat = 99;
                 HeatBar.GetComponent<Image>().color = new Color(1f, 0.475f, 0f, 1f);
-                transform.parent.GetComponent<NavMeshAgent>().speed = 2f;
+                NavMeshAgent.speed = 2f;
                 weapon.SetActive(false);
                 _animator.SetBool("Combat", false);
             }
@@ -116,7 +116,6 @@ public class NPC : MonoBehaviour
             if (Time.time > FireCooldown)
             {
                 FireCooldown = Time.time + 1f;
-                //
                 int dmg = Random.Range(10, 30);
                 Debug.Log("Enemy hit you for: " + dmg);
                 playerScript.GetComponent<Player_Controls>().TakeDamage(dmg);
@@ -132,7 +131,7 @@ public class NPC : MonoBehaviour
         if (Vector3.Distance(transform.position, waypoints[WayPointCount].transform.position) < 1)
         {
             // Allign with waypoint forward vector.
-            transform.parent.transform.rotation = Quaternion.RotateTowards(transform.parent.transform.rotation, waypoints[WayPointCount].transform.rotation, 80f * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, waypoints[WayPointCount].transform.rotation, 80f * Time.deltaTime);
             if (!PatrolWait)
             {
                 PatrolWaitTime = Time.time + 5f;
@@ -162,12 +161,12 @@ public class NPC : MonoBehaviour
         }
         if (CanSeePlayer() && illegal)
         {
-            Heat += 100 * Time.deltaTime;
+            Heat += 150 * Time.deltaTime;
             HeatBar.GetComponent<UI_Bar>().UpdateBar(Heat);
         }
         else
         {
-            Heat -= 140 * Time.deltaTime;
+            Heat -= 200 * Time.deltaTime;
             if (Heat < 0) Heat = 0;
             HeatBar.GetComponent<UI_Bar>().UpdateBar(Heat);
         }
@@ -199,6 +198,7 @@ public class NPC : MonoBehaviour
     {
         grabbed = true;
     }
+
     public void TakeDamage(int damage)
     {
         HP -= damage;
@@ -211,6 +211,11 @@ public class NPC : MonoBehaviour
             HeatBar.GetComponent<UI_Bar>().UpdateBar(Heat);
             NavMeshAgent.isStopped = true;
             this.enabled = false;
+        }
+        // Become aggresive if not dead
+        else
+        {
+            Heat = 100;
         }
     }
 }

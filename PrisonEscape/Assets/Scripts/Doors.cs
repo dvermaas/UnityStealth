@@ -30,10 +30,6 @@ public class Doors : MonoBehaviour
                 IsBusy = false;
             }
         }
-        else
-        {
-            Debug.Log("(Doors.cs) stop spamming doors dickhead");
-        }
     }
 
     // Opens the door
