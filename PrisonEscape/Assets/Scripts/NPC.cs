@@ -39,7 +39,8 @@ public class NPC : MonoBehaviour
     void Start()
     {
         _animator = GetComponent<Animator>();
-        NavMeshAgent = GetComponent<NavMeshAgent>();
+        //NavMeshAgent = GetComponent<NavMeshAgent>();
+        NavMeshAgent = transform.parent.GetComponent<NavMeshAgent>();
         playerScript = GameObject.Find("Player");
         Player = GameObject.Find("Main Camera");
         HeatBar = GameObject.Find("HeatBarFill");
@@ -131,7 +132,8 @@ public class NPC : MonoBehaviour
         if (Vector3.Distance(transform.position, waypoints[WayPointCount].transform.position) < 1)
         {
             // Allign with waypoint forward vector.
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, waypoints[WayPointCount].transform.rotation, 80f * Time.deltaTime);
+            //transform.rotation = Quaternion.RotateTowards(transform.rotation, waypoints[WayPointCount].transform.rotation, 80f * Time.deltaTime);
+            transform.parent.transform.rotation = Quaternion.RotateTowards(transform.parent.transform.rotation, waypoints[WayPointCount].transform.rotation, 80f * Time.deltaTime);
             if (!PatrolWait)
             {
                 PatrolWaitTime = Time.time + 5f;

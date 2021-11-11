@@ -11,7 +11,7 @@ public class Mesh_Generator : MonoBehaviour
     int[] triangles;
 
     public int xSize = 80;
-    public int zSize = 200;
+    public int zSize = 295;
 
     void Start()
     {
@@ -32,7 +32,7 @@ public class Mesh_Generator : MonoBehaviour
             for (int x = 0; x <= xSize; x++)
             {
                 // Make middle flat
-                if (38 < x && x < 42)
+                if (39 < x && x < 41)
                 {
                     float y = 0;
                     vertices[i] = new Vector3(x, y, z);
@@ -41,12 +41,12 @@ public class Mesh_Generator : MonoBehaviour
                 {
                     if (x <= 36)
                     {
-                        float y = Mathf.PerlinNoise(x * .1f, z * .1f) * ((8 * (38 - x)) / 38) * 1.5f;
+                        float y = Mathf.PerlinNoise(x * .1f, z * .1f) * ((8 * (39 - x)) / 39) * 1.5f;
                         vertices[i] = new Vector3(x, y, z);
                     }
                     else
                     {
-                        float y = Mathf.PerlinNoise(x * .1f, z * .1f) * ((8 * (x-44))/38) * 1.5f;
+                        float y = Mathf.PerlinNoise(x * .1f, z * .1f) * ((8 * (x-39))/39) * 1.5f;
                         vertices[i] = new Vector3(x, y, z);
                     }
                 }
