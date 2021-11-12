@@ -5,7 +5,6 @@ using UnityEngine;
 public class Tesla : MonoBehaviour
 {
     public GameObject[] roadPieces;
-    //private float spacing = 191.9f;
     private float spacing = 191f;
     private float smallest_z;
 
@@ -24,7 +23,7 @@ public class Tesla : MonoBehaviour
         foreach (GameObject road in roadPieces)
         {
             // Scroll speed
-            road.transform.Translate(0, 0, 20 * dt);
+            road.transform.Translate(0, 0, 25 * dt);
             if (road.transform.position.z >= 0)
             {
                 // Paste road after the last roadpiece (scaleable for any length roadPieces)
