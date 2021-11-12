@@ -12,8 +12,9 @@ public class Tesla : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        other_y = roadPieces[roadPieces.Length - 1].transform.position.z;
     }
-    // Update is called once per frame
+
     void Update()
     {
         if (Input.GetButton("Shoot"))
@@ -23,13 +24,12 @@ public class Tesla : MonoBehaviour
         float dt = Time.deltaTime;
         foreach (GameObject road in roadPieces)
         {
-            //road.transform.Translate(0, 0, 50 * dt);
-            road.transform.Translate(0, 0, 0.6f);
+            road.transform.Translate(0, 0, 20 * dt);
             if (road.transform.position.z >= 0)
             {
-                road.transform.Translate(0, 0, road.transform.position.z - (roadPieces.Length * spacing));
-                //road.transform.position = new Vector3(0, 0, -191.9f*2);
+                road.transform.position = new Vector3(0, 0, other_y - spacing);
             }
+            other_y = road.transform.position.z;
         }
     }
 }
