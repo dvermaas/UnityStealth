@@ -163,12 +163,12 @@ public class NPC : MonoBehaviour
         }
         if (CanSeePlayer() && illegal)
         {
-            Heat += 150 * Time.deltaTime;
+            Heat += 120 * Time.deltaTime;
             HeatBar.GetComponent<UI_Bar>().UpdateBar(Heat);
         }
         else
         {
-            Heat -= 200 * Time.deltaTime;
+            Heat -= 150 * Time.deltaTime;
             if (Heat < 0) Heat = 0;
             HeatBar.GetComponent<UI_Bar>().UpdateBar(Heat);
         }

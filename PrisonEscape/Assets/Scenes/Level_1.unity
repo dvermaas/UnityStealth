@@ -47857,6 +47857,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: new_enemy_nav
       objectReference: {fileID: 0}
+    - target: {fileID: 1969282694546349658, guid: 552fb8766b6a4e243ab3ca0bfdd44c9a,
+        type: 3}
+      propertyPath: waypoints.Array.data[0]
+      value: 
+      objectReference: {fileID: 1002294196}
+    - target: {fileID: 1969282694546349658, guid: 552fb8766b6a4e243ab3ca0bfdd44c9a,
+        type: 3}
+      propertyPath: waypoints.Array.data[1]
+      value: 
+      objectReference: {fileID: 1652624908}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 552fb8766b6a4e243ab3ca0bfdd44c9a, type: 3}
 --- !u!43 &1390879254

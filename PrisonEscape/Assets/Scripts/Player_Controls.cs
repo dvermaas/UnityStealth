@@ -42,6 +42,7 @@ public class Player_Controls : MonoBehaviour
     {
         MovementSpeed = MovementSpeedBase;
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
 
         _camera = GameObject.Find("Main Camera");
         _gun = GameObject.Find("Glock");
