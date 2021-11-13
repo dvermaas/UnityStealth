@@ -11,6 +11,8 @@ public class Main_Menu : MonoBehaviour
 
     public GameObject settings_menu;
 
+    public Text m_Text;
+
     void Start()
     {
         // Have start button preselected
@@ -20,7 +22,10 @@ public class Main_Menu : MonoBehaviour
     // Starts the game by progressing to next scene
     public void StartGame()
     {
-        SceneManager.LoadScene("Level_1");
+        //SceneManager.LoadScene("Level_1");
+        //Application.backgroundLoadingPriority = ThreadPriority.Low;
+        //AsyncOperation asyncOperation = SceneManager.LoadSceneAsync("Level_1");
+        StartCoroutine(LoadScene("Level_1"));
         Debug.Log("Started the game");
     }
 
@@ -36,5 +41,39 @@ public class Main_Menu : MonoBehaviour
     {
         Debug.Log("New volume:" + Value);
         _music.volume = Value;
+    }
+
+    // We may need this someday
+    // https://docs.unity3d.com/ScriptReference/AsyncOperation-allowSceneActivation.html
+    IEnumerator LoadScene(string scene)
+    {
+        yield return null;
+
+        //Begin to load the Scene you specify
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(scene);
+        //Don't let the Scene activate until you allow it to
+        asyncOperation.allowSceneActivation = false;
+        Debug.Log("Pro :" + asyncOperation.progress);
+        //When the load is still in progress, output the Text and progress bar
+        while (!asyncOperation.isDone)
+        {
+            //Output the current progress
+            //m_Text.text = "Loading progress: " + (asyncOperation.progress * 100) + "%";
+
+            // Check if the load has finished
+            if (asyncOperation.progress >= 0.9f)
+            {
+                //Change the Text to show the Scene is ready
+                //m_Text.text = "Press the space bar to continue";
+                //Wait to you press the space key to activate the Scene
+                Debug.Log("Job done");
+                asyncOperation.allowSceneActivation = true;
+                if (Input.GetKeyDown(KeyCode.Space))
+                    //Activate the Scene
+                    asyncOperation.allowSceneActivation = true;
+            }
+
+            yield return null;
+        }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Tesla : MonoBehaviour
 {
     public GameObject[] roadPieces;
-    private float spacing = 191f;
+    private float spacing = 192f;
     private float smallest_z;
 
     void Start()
@@ -15,28 +15,17 @@ public class Tesla : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButton("Shoot"))
-        {
-            Cursor.lockState = CursorLockMode.None;
-        }
+        if (Input.GetButton("Shoot")) Cursor.lockState = CursorLockMode.None;
+                
         float dt = Time.deltaTime;
+        smallest_z = 0;
+        // Move all roadpieces and save the last one
         foreach (GameObject road in roadPieces)
         {
-            // Scroll speed
             road.transform.Translate(0, 0, 25 * dt);
-            if (road.transform.position.z >= 0)
-            {
-                // Paste road after the last roadpiece (scaleable for any length roadPieces)
-                smallest_z = 0;
-                foreach (GameObject road2 in roadPieces)
-                {
-                    if (road2.transform.position.z < smallest_z)
-                    {
-                        smallest_z = road2.transform.position.z;
-                    }
-                }
-                road.transform.position = new Vector3(0, 0, smallest_z - spacing);
-            }
+            if (road.transform.position.z < smallest_z) smallest_z = road.transform.position.z;
         }
+        // If first piece is behind car teleport to front
+        foreach (GameObject road in roadPieces) if (road.transform.position.z >= 0) road.transform.position = new Vector3(0, 0, smallest_z - spacing);
     }
 }

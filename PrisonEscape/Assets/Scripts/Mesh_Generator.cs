@@ -39,14 +39,23 @@ public class Mesh_Generator : MonoBehaviour
                 }
                 else
                 {
+                    float alt_z;
+                    if (z >= zSize)
+                    {
+                        alt_z = 0;
+                    }
+                    else
+                    {
+                        alt_z = z;
+                    }
                     if (x <= 36)
                     {
-                        float y = Mathf.PerlinNoise(x * .1f, z * .1f) * ((8 * (39 - x)) / 39) * 1.5f;
+                        float y = Mathf.PerlinNoise(x * .1f, alt_z * .1f) * ((8 * (39 - x)) / 39) * 1.5f;
                         vertices[i] = new Vector3(x, y, z);
                     }
                     else
                     {
-                        float y = Mathf.PerlinNoise(x * .1f, z * .1f) * ((8 * (x-39))/39) * 1.5f;
+                        float y = Mathf.PerlinNoise(x * .1f, alt_z * .1f) * ((8 * (x-39))/39) * 1.5f;
                         vertices[i] = new Vector3(x, y, z);
                     }
                 }
