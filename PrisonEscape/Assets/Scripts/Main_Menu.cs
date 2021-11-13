@@ -12,6 +12,7 @@ public class Main_Menu : MonoBehaviour
     public GameObject settings_menu;
 
     public Text m_Text;
+    public GameObject textLoading;
 
     void Start()
     {
@@ -25,6 +26,7 @@ public class Main_Menu : MonoBehaviour
         //SceneManager.LoadScene("Level_1");
         //Application.backgroundLoadingPriority = ThreadPriority.Low;
         //AsyncOperation asyncOperation = SceneManager.LoadSceneAsync("Level_1");
+        textLoading.SetActive(true);
         StartCoroutine(LoadScene("Level_1"));
         Debug.Log("Started the game");
     }

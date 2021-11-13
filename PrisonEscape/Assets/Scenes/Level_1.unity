@@ -72209,6 +72209,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 712760459447290576, guid: 2252d1f794cde9340837ae8a7562ba39,
+        type: 3}
+      propertyPath: antialiasing
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 712760459474508748, guid: 2252d1f794cde9340837ae8a7562ba39,
         type: 3}
       propertyPath: m_Colors.m_SelectedColor.b
