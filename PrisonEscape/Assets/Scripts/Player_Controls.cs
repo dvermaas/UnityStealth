@@ -36,7 +36,6 @@ public class Player_Controls : MonoBehaviour
 
     private GameObject _fps;
     private float _timer;
-    [SerializeField] GameObject _rtx;
 
     // Start is called before the first frame update
     void Start()
@@ -125,7 +124,6 @@ public class Player_Controls : MonoBehaviour
     {
         if (Input.GetButtonDown("Interact"))
         {
-            _rtx.SetActive(true);
             // Look for doors
             if (Physics.Raycast(_camera.transform.position, _camera.transform.forward, out hitInfo, FireRange))
             {
